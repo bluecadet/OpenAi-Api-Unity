@@ -69,11 +69,14 @@ namespace OpenAi.Api.V1
                         {
                             if (njo.Name == "top_logprobs")
                             {
-                                foreach (JsonObject nnjo in njo.NestedValues)
-                                {
-                                    Debug.Log(nnjo.Name);
-                                    Debug.Log(nnjo.StringValue);
-                                }
+                                Debug.Log(nnjo.Type);
+                                Debug.Log(nnjo.NestedValues.Count);
+
+                                // foreach (JsonObject nnjo in njo.NestedValues)
+                                // {
+                                //     Debug.Log(nnjo.Name);
+                                //     Debug.Log(nnjo.StringValue);
+                                // }
                             }
                         }
 
