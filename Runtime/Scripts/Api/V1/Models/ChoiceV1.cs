@@ -69,7 +69,9 @@ namespace OpenAi.Api.V1
                         {
                             if (njo.Name == "top_logprobs")
                             {
-                                foreach (JsonObject nnjo in njo.NestedValues)
+                                JsonObject topLogprob0 = njo.NestedValues[0];
+
+                                foreach (JsonObject nnjo in topLogprob0.NestedValues)
                                 {
                                     Debug.Log(nnjo.Type);
                                     Debug.Log(nnjo.Name);
