@@ -63,6 +63,11 @@ namespace OpenAi.Api.V1
                     case nameof(logprobs):
                         Debug.Log(jo.Type);
                         Debug.Log(jo.NestedValues.Count);
+                        foreach (JsonObject nestedJo in jo.NestedValues)
+                        {
+                            Debug.Log(nestedJo.Name);
+                            Debug.Log(nestedJo.StringValue);
+                        }
                         logprobs = jo.StringValue;
                         break;
                     case nameof(finish_reason):
