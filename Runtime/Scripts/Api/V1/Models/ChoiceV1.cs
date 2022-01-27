@@ -61,7 +61,8 @@ namespace OpenAi.Api.V1
                         index = int.Parse(jo.StringValue);
                         break;
                     case nameof(logprobs):
-                        Debug.Log(jo);
+                        Debug.Log(jo.Type);
+                        Debug.Log(jo.NestedValues.Count);
                         logprobs = jo.StringValue;
                         break;
                     case nameof(finish_reason):
