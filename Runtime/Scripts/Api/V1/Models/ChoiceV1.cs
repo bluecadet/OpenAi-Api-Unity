@@ -1,6 +1,7 @@
 using OpenAi.Json;
 
 using System;
+using UnityEngine;
 
 namespace OpenAi.Api.V1
 {
@@ -48,6 +49,8 @@ namespace OpenAi.Api.V1
         public override void FromJson(JsonObject jsonObj)
         {
             if (jsonObj.Type != EJsonType.Object) throw new Exception("Must be an object");
+
+            Debug.Log(jsonObj);
 
             foreach (JsonObject jo in jsonObj.NestedValues)
             {
