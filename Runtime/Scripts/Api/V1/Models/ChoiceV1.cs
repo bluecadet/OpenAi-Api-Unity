@@ -25,6 +25,25 @@ namespace OpenAi.Api.V1
         /// </summary>
         public string logprobs;
 
+        /// Start of Bluecadet addition ///
+
+        /// <summary>
+        /// Log probability 0
+        /// </summary>
+        public float? logprob0 = null;
+
+        /// <summary>
+        /// Log probability 1
+        /// </summary>
+        public float? logprob1 = null;
+
+        /// <summary>
+        /// Log probability 2
+        /// </summary>
+        public float? logprob2 = null;
+
+        /// End of Bluecadet addition ///
+
         /// <summary>
         /// The reason the engine ended the completion
         /// </summary>
@@ -39,6 +58,16 @@ namespace OpenAi.Api.V1
             jb.Add(nameof(text), text);
             jb.Add(nameof(index), index);
             jb.Add(nameof(logprobs), logprobs);
+
+            /// Start of Bluecadet addition ///
+            /// 
+            jb.Add(nameof(logprob0), logprob0);
+            jb.Add(nameof(logprob1), logprob1);
+            jb.Add(nameof(logprob2), logprob2);
+
+            /// End of Bluecadet addition ///
+
+
             jb.Add(nameof(finish_reason), finish_reason);
             jb.EndObject();
 
@@ -64,21 +93,59 @@ namespace OpenAi.Api.V1
                         // Original code (doesn't work):
                         logprobs = jo.StringValue;
 
+                        /// Start of Bluecadet addition ///
+
                         // Bluecadet code to get toplogprobs:
                         foreach (JsonObject njo in jo.NestedValues)
                         {
                             if (njo.Name == "top_logprobs")
                             {
-                                JsonObject topLogprob0 = njo.NestedValues[0];
+                                JsonObject nnjo = njo.NestedValues[0];
 
-                                foreach (JsonObject nnjo in topLogprob0.NestedValues)
+                                foreach (JsonObject nnnjo in nnjo.NestedValues)
                                 {
-                                    Debug.Log(nnjo.Type);
-                                    Debug.Log(nnjo.Name);
-                                    Debug.Log(nnjo.StringValue);
+                                    switch (nnnjo.Name)
+                                    {
+                                        case "0":
+                                            {
+                                                float value = float.Parse(nnnjo.StringValue);
+
+                                                if (logprob0 == null || value > logprob0)
+                                                {
+                                                    logprob0 = value;
+                                                }
+
+                                                break;
+                                            }
+                                        case "1":
+                                            {
+                                                float value = float.Parse(nnnjo.StringValue);
+
+                                                if (logprob1 == null || value > logprob1)
+                                                {
+                                                    logprob1 = value;
+                                                }
+
+                                                break;
+                                            }
+
+                                        case "2":
+                                            {
+                                                float value = float.Parse(nnnjo.StringValue);
+
+                                                if (logprob2 == null || value > logprob2)
+                                                {
+                                                    logprob2 = value;
+                                                }
+
+                                                break;
+                                            }
+                                    }
                                 }
                             }
                         }
+
+                        /// End of Bluecadet addition ///
 
                         break;
                     case nameof(finish_reason):
