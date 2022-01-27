@@ -61,14 +61,22 @@ namespace OpenAi.Api.V1
                         index = int.Parse(jo.StringValue);
                         break;
                     case nameof(logprobs):
-                        Debug.Log(jo.Type);
-                        Debug.Log(jo.NestedValues.Count);
-                        foreach (JsonObject nestedJo in jo.NestedValues)
-                        {
-                            Debug.Log(nestedJo.Name);
-                            Debug.Log(nestedJo.StringValue);
-                        }
+                        // Original code (doesn't work):
                         logprobs = jo.StringValue;
+
+                        // Bluecadet code to get toplogprobs:
+                        foreach (JsonObject njo in jo.NestedValues)
+                        {
+                            if (njo.Name == "top_logprobs")
+                            {
+                                foreach (JsonObject nnjo in njo.NestedValues)
+                                {
+                                    Debug.Log(nnjo.Name);
+                                    Debug.Log(nnjo.StringValue);
+                                }
+                            }
+                        }
+
                         break;
                     case nameof(finish_reason):
                         finish_reason = jo.StringValue;
