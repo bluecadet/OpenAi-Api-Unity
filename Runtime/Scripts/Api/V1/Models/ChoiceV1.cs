@@ -50,8 +50,6 @@ namespace OpenAi.Api.V1
         {
             if (jsonObj.Type != EJsonType.Object) throw new Exception("Must be an object");
 
-            Debug.Log(jsonObj);
-
             foreach (JsonObject jo in jsonObj.NestedValues)
             {
                 switch (jo.Name)
@@ -63,6 +61,7 @@ namespace OpenAi.Api.V1
                         index = int.Parse(jo.StringValue);
                         break;
                     case nameof(logprobs):
+                        Debug.Log(jo);
                         logprobs = jo.StringValue;
                         break;
                     case nameof(finish_reason):
