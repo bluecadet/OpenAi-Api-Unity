@@ -1,3 +1,5 @@
+**Bluecadet Notes**: We've modified `ChoiceV1.cs` to add support for the OpenAI content filter. Specifically, we've added `logprob0`, `logprob1`, and `logprob2` as needed to process the results from OpenAI content filter (See [OpenAI API Docs](https://beta.openai.com/docs/engines/content-filter) for usage and examples). The original `logprobs` field doesn't work, and is left unchanged.
+
 **WARNING**: I'm currently not in a position to update this repo and keep up with changes to the OpenAI Api. From my end, I doubt updates will come. However, I will gladly accept pull requests to fix any problems in the code base. If anyone is interested in being a more active maintainer of the repo, please let me know. 
 
 # OpenAi Api Unity
