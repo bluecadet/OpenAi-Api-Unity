@@ -96,50 +96,53 @@ namespace OpenAi.Api.V1
                         /// Start of Bluecadet addition ///
 
                         // Bluecadet code to get toplogprobs:
-                        foreach (JsonObject njo in jo.NestedValues)
+                        if (jo.NestedValues != null)
                         {
-                            if (njo.Name == "top_logprobs")
+                            foreach (JsonObject njo in jo.NestedValues)
                             {
-                                JsonObject nnjo = njo.NestedValues[0];
-
-                                foreach (JsonObject nnnjo in nnjo.NestedValues)
+                                if (njo.Name == "top_logprobs")
                                 {
-                                    switch (nnnjo.Name)
+                                    JsonObject nnjo = njo.NestedValues[0];
+
+                                    foreach (JsonObject nnnjo in nnjo.NestedValues)
                                     {
-                                        case "0":
-                                            {
-                                                float value = float.Parse(nnnjo.StringValue);
-
-                                                if (logprob0 == null || value > logprob0)
+                                        switch (nnnjo.Name)
+                                        {
+                                            case "0":
                                                 {
-                                                    logprob0 = value;
+                                                    float value = float.Parse(nnnjo.StringValue);
+
+                                                    if (logprob0 == null || value > logprob0)
+                                                    {
+                                                        logprob0 = value;
+                                                    }
+
+                                                    break;
+                                                }
+                                            case "1":
+                                                {
+                                                    float value = float.Parse(nnnjo.StringValue);
+
+                                                    if (logprob1 == null || value > logprob1)
+                                                    {
+                                                        logprob1 = value;
+                                                    }
+
+                                                    break;
                                                 }
 
-                                                break;
-                                            }
-                                        case "1":
-                                            {
-                                                float value = float.Parse(nnnjo.StringValue);
-
-                                                if (logprob1 == null || value > logprob1)
+                                            case "2":
                                                 {
-                                                    logprob1 = value;
+                                                    float value = float.Parse(nnnjo.StringValue);
+
+                                                    if (logprob2 == null || value > logprob2)
+                                                    {
+                                                        logprob2 = value;
+                                                    }
+
+                                                    break;
                                                 }
-
-                                                break;
-                                            }
-
-                                        case "2":
-                                            {
-                                                float value = float.Parse(nnnjo.StringValue);
-
-                                                if (logprob2 == null || value > logprob2)
-                                                {
-                                                    logprob2 = value;
-                                                }
-
-                                                break;
-                                            }
+                                        }
                                     }
                                 }
                             }
